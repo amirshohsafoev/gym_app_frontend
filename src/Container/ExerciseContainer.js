@@ -4,6 +4,7 @@ class ExerciseContainer extends React.Component {
     return (
       <div>
         <h1>Exercises</h1>
+        <p>{this.props.exercises.exercise_name}</p>
       </div>
     );
   }

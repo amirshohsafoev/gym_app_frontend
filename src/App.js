@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PartOfTheBodyContainer from "./Container/PartOfTheBodyContainer";
 import "./App.css";
 // import { connect } from "react-redux";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, Link, withRouter } from "react-router-dom";
 // import { bindActionCreators } from "redux";
 // import { getBodies } from "./Action/bodyActions";
 // import SideBar from "./Form/Sidebar";
@@ -17,7 +17,12 @@ class App extends Component {
     return (
       <div>
         <h1>My App</h1>
-        <PartOfTheBodyContainer />
+        <Link to="/bodyparts">
+          <button />
+        </Link>
+        <Switch>
+          <Route path="/bodyparts" render={() => <PartOfTheBodyContainer />} />
+        </Switch>
       </div>
     );
   }
