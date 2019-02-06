@@ -8,24 +8,17 @@ class PartOfTheBodyCard extends React.Component {
   //     console.log("hi");
   //     return <ExerciseContainer exercise={exercise} />;
   //   });
-  // }
+
   // onClick={() => this.renderExercise()}
   render() {
+    // console.log(this.props.body.exercises);
     return (
       <div>
-        <h1>{this.props.body.body_name}</h1>
-        <Link to="/">
-          <img src={this.props.body.picture_url} />
+        <Link to="/exercises">
+          <h1>{this.props.body.body_name}</h1>
         </Link>
-        <Switch>
-          <Route
-            exact
-            path="/exercises"
-            render={() => (
-              <ExerciseContainer exercises={this.props.body.exercise} />
-            )}
-          />
-        </Switch>
+        <img src={this.props.body.picture_url} />
+        <ExerciseContainer exercises={this.props.body.exercises} />
       </div>
     );
   }

@@ -9,7 +9,7 @@ class PartOfTheBodyContainer extends React.Component {
     this.props.getBodies();
   }
   render() {
-    console.log(this.props.bodies);
+    // console.log(this.props.bodies);
     return (
       <div>
         <h1>Part Container</h1>
