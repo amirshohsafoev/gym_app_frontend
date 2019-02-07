@@ -1,4 +1,5 @@
 export const LOAD_BODIES = "LOAD_BODIES";
+export const FILTER_EXERCISES = "FILTER_EXERCISES";
 
 export const getBodies = () => {
   return dispatch => {
@@ -11,5 +12,12 @@ export const getBodies = () => {
         });
       })
       .catch(console.error);
+  };
+};
+
+export const filterExercises = chosen_body => {
+  return {
+    type: FILTER_EXERCISES,
+    payload: chosen_body
   };
 };

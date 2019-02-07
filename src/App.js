@@ -3,13 +3,15 @@ import React, { Component } from "react";
 import { Button, Dropdown, Menu } from "semantic-ui-react";
 import "./App.css";
 // import { connect } from "react-redux";
-import { Route, Switch, Link, withRouter } from "react-router-dom";
+import { Route, Switch, Link, withRouter, NavLink } from "react-router-dom";
 // import { bindActionCreators } from "redux";
 // import { getBodies } from "./Action/bodyActions";
 // import SideBar from "./Form/Sidebar";
 import LogInForm from "./Form/LogInForm";
 import PartOfTheBodyContainer from "./Container/PartOfTheBodyContainer";
 import ExerciseContainer from "./Container/ExerciseContainer";
+import UserExerciseContainer from "./Container/UserExerciseContainer";
+
 import CreateUserForm from "./Form/CreateUserForm";
 class App extends Component {
   state = { activeItem: "home" };
@@ -18,6 +20,13 @@ class App extends Component {
   //   componentDidMount() {
   //     this.props.getBodies();
   //   }
+  checkAuth = () => {
+    if (localStorage.getItem("token")) {
+      return <PartOfTheBodyContainer />;
+    } else {
+      return <LogInForm />;
+    }
+  };
   render() {
     // console.log(this.props.bodies);
     const { activeItem } = this.state;
@@ -32,13 +41,13 @@ class App extends Component {
             />
           </Link>
 
-          <Link to="/bodyparts">
+          <NavLink to="/bodyparts">
             <Menu.Item
               name="Body Parts"
               active={activeItem === "messages"}
               onClick={this.handleItemClick}
             />
-          </Link>
+          </NavLink>
           <Link to="/createuser">
             <Menu.Item
               name="Sign up"
@@ -50,8 +59,12 @@ class App extends Component {
           <Menu.Menu position="right">
             <Dropdown item text="Do not know yet">
               <Dropdown.Menu>
-                <Dropdown.Item>English</Dropdown.Item>
-                <Dropdown.Item>Russian</Dropdown.Item>
+                <Link to="/userexercises">
+                  <Dropdown.Item>My Exercises</Dropdown.Item>
+                </Link>
+                <Link to="/bodyparts">
+                  <Dropdown.Item>To workout</Dropdown.Item>
+                </Link>
                 <Dropdown.Item>Spanish</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -64,20 +77,17 @@ class App extends Component {
         </Menu>
         <h1>My App</h1>
         <Switch>
+          <Route path="/userexercises" component={UserExerciseContainer} />
           <Route path="/bodyparts" component={PartOfTheBodyContainer} />
           <Route path="/exercises" component={ExerciseContainer} />
-          <Route
-            path="/signin"
-            render={() => {
-              return <LogInForm />;
-            }}
-          />
+          <Route path="/" render={() => this.checkAuth()} />
           <Route path="/createuser" component={CreateUserForm} />
         </Switch>
       </div>
     );
   }
 }
+
 // function mapStateToProps(state) {
 //   return {
 //     bodies: state.bodies

@@ -26,7 +26,8 @@ class PartOfTheBodyContainer extends React.Component {
 //Return value of the function will be mapped to props
 function mapStateToProps(state) {
   return {
-    bodies: state.bodies
+    bodies: state.bodies,
+    chosen_body: state.chosen_body
     // day: state.hello
   };
 }

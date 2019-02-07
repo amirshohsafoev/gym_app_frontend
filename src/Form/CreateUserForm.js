@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Divider } from "semantic-ui-react";
 
 class CreateUserForm extends React.Component {
   constructor(props) {
@@ -44,57 +44,67 @@ class CreateUserForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Group>
+        <Form.Group unstackable widths={2}>
           <Form.Input
             placeholder="First name"
             name="first_name"
             value={first_name}
             onChange={this.handleChange}
           />
+          <Divider hidden />
           <Form.Input
             placeholder="Last name"
             name="last_name"
             value={last_name}
             onChange={this.handleChange}
           />
+        </Form.Group>
+        <Form.Group>
+          <Divider hidden />
           <Form.Input
             placeholder="Email"
             name="email"
             value={email}
             onChange={this.handleChange}
           />
+          <Divider hidden />
           <Form.Input
             placeholder="Picture url"
             name="picture_url"
             value={picture_url}
             onChange={this.handleChange}
           />
+          <Divider hidden />
           <Form.Input
             placeholder="Age"
             name="age"
             value={age}
             onChange={this.handleChange}
           />
+          <Divider hidden />
           <Form.Input
             placeholder="Weight"
             name="weight"
             value={weight}
             onChange={this.handleChange}
           />
+          <Divider hidden />
           <Form.Input
             placeholder="Height"
             name="height"
             value={height}
             onChange={this.handleChange}
           />
+          <Divider hidden />
           <Form.Input
             placeholder="Password"
             name="password"
             value={password}
             onChange={this.handleChange}
           />
-          <Form.Button content="Sign up" />
+          <Divider hidden />
         </Form.Group>
+        <Form.Button content="Sign up" />
       </Form>
     );
   }

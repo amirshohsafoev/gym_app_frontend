@@ -6,13 +6,16 @@ class ExerciseContainer extends React.Component {
   //     <ExerciseCard exercise={exercise} />
   //   ));
   // }
-  renderExercise() {
-    return this.props.exercises.map(exercise => (
-      <ExerciseCard exercise={exercise} key={exercise.id} />
-    ));
-  }
+  renderExercise = () => {
+    // debugger;
+    if (this.props.exercises !== undefined) {
+      return this.props.exercises.map(exercise => (
+        <ExerciseCard exercise={exercise} key={exercise.id} />
+      ));
+    }
+  };
   render() {
-    console.log("my exercises", this.props.exercises);
+    console.log("my exercises", this.props);
 
     return (
       <div>
