@@ -16,6 +16,7 @@ import ExerciseContainer from "./Container/ExerciseContainer";
 import UserExerciseContainer from "./Container/UserExerciseContainer";
 import Home from "./Container/Home";
 import UserContainer from "./Container/UserContainer";
+import Calendar from "./Container/Calendar";
 
 import CreateUserForm from "./Form/CreateUserForm";
 
@@ -54,11 +55,16 @@ class App extends Component {
       <div>
         <NavBar />
         <Switch>
+          <Route exact path="/calendar" render={() => <Calendar />} />
           <Route exact path="/createuser" render={() => <CreateUserForm />} />
           <Route
             exact
             path="/userexercises"
-            render={() => <UserExerciseContainer />}
+            render={() => (
+              <UserExerciseContainer
+                myExercises={this.props.user.user_exercises}
+              />
+            )}
           />
           <Route
             exact
