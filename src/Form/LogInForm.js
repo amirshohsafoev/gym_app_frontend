@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Form } from "semantic-ui-react";
 
 class LogInForm extends React.Component {
@@ -57,7 +57,7 @@ class LogInForm extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data.jwt);
+        console.log(data);
         localStorage.setItem("token", data.jwt);
       });
   };

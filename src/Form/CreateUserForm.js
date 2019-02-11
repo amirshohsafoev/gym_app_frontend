@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Divider } from "semantic-ui-react";
 
-class CreateUserForm extends React.Component {
+class CreateUserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -129,7 +129,6 @@ class CreateUserForm extends React.Component {
         age: this.state.age,
         weight: this.state.weight,
         height: this.state.height,
-        email: this.state.email,
         password: this.state.password
       })
     })

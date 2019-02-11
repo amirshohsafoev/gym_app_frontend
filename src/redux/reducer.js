@@ -1,25 +1,26 @@
-import { LOAD_BODIES } from "../Action/bodyActions";
+import { LOAD_BODIES, FILTER_EXERCISES } from "../Action/bodyAction";
 import { LOAD_USER_EXERCISES } from "../Action/userExerciseAction";
-import { FILTER_EXERCISES } from "../Action/bodyActions";
-
+import { LOAD_USER } from "../Action/userAction";
 const initialState = {
-  // hello: "friday",
-  chosen_body: [],
   bodies: [],
+  chosen_body: [],
+  user: [],
   user_exercises: []
 };
 
 const reducer = (state = initialState, action) => {
-  // console.log(state);
   switch (action.type) {
     case LOAD_BODIES: {
       return { ...state, bodies: action.payload };
     }
-    case LOAD_USER_EXERCISES: {
-      return { ...state, user_exercises: action.payload };
-    }
     case FILTER_EXERCISES: {
       return { ...state, chosen_body: action.payload };
+    }
+    case LOAD_USER: {
+      return { ...state, user: action.payload };
+    }
+    case LOAD_USER_EXERCISES: {
+      return { ...state, user_exercises: action.payload };
     }
     default:
       return state;
