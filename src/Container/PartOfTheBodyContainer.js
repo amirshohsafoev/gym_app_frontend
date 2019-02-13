@@ -1,27 +1,22 @@
 import React from "react";
 import PartOfTheBodyCards from "../Card/PartOfTheBodyCards";
 
-import { connect } from "react-redux";
-
 class PartOfTheBodyContainer extends React.Component {
+  renderBodies = () => {
+    if (this.props.bodies !== undefined) {
+      return this.props.bodies.map(body => (
+        <PartOfTheBodyCards body={body} key={body.id} />
+      ));
+    }
+  };
   render() {
-    console.log(this.props);
     return (
       <div>
-        <h1>Part Container</h1>
-        <PartOfTheBodyCards />
+        <h1>Muscle Groups</h1>
+        {this.renderBodies()}
       </div>
     );
   }
 }
 
-// const someFunction = connect();
-// const someComponent(PartOfTheBodyContainer);
-//Return value of the function will be mapped to props
-const mapStateToProps = state => {
-  return {
-    hello: "monday"
-  };
-};
-
-export default connect(mapStateToProps)(PartOfTheBodyContainer);
+export default PartOfTheBodyContainer;

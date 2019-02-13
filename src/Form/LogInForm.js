@@ -1,4 +1,7 @@
 import React from "react";
+// import { Form } from "semantic-ui-react";
+import { Form, Button, Row, Col } from "react-bootstrap";
+
 class LogInForm extends React.Component {
   constructor(props) {
     super(props);
@@ -7,39 +10,60 @@ class LogInForm extends React.Component {
       password: ""
     };
   }
+
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  handleSubmit = () => this.setState({ email: "", password: "" });
+
   render() {
+    const { password, email } = this.state;
+
     return (
-      <Form onSubmit={this.submitHandler}>
-        <FormGroup>
-          <Label for="exampleEmail">Email</Label>
-          <Input
-            onChange={this.onchangeHandler}
-            type="email"
-            name="email"
-            id="exampleEmail"
-            placeholder="with a placeholder"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="examplePassword">Password</Label>
-          <Input
-            onChange={this.onchangeHandler}
-            type="password"
-            name="password"
-            id="examplePassword"
-            placeholder="password placeholder"
-          />
-        </FormGroup>
-        <Button>Log in</Button>
+      <Form onSubmit={this.handleSubmit}>
+        <Col>
+          <Row>
+            <Form.Group controlId="formGroupEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={this.handleChange}
+              />
+              <Form.Text className="text-muted">
+                We will never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
+          </Row>
+          <Row>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+          </Row>
+          <Row>
+            <Form.Group controlId="formBasicChecbox">
+              <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
+          </Row>
+        </Col>
+        <Button variant="primary" type="submit">
+          Sign In
+        </Button>
       </Form>
     );
   }
-  onchangeHandler = e => {
+  handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
-  submitHandler = e => {
+  handleSubmit = e => {
     e.preventDefault();
     fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
@@ -54,7 +78,7 @@ class LogInForm extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data.jwt);
+        console.log(data);
         localStorage.setItem("token", data.jwt);
       });
   };
