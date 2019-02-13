@@ -2,8 +2,8 @@ import React from "react";
 
 class UserContainer extends React.Component {
   render() {
-    let user = this.props.user;
-    console.log(user.exercises);
+    let { user } = this.props;
+    console.log(user.user_exercises);
     return (
       <div>
         <h1>User Page</h1>

@@ -1,17 +1,21 @@
 import React from "react";
+import PartOfTheBodyCards from "../Card/PartOfTheBodyCards";
+
+import { Button, Header, Image, Modal, Grid } from "semantic-ui-react";
 import dateFns from "date-fns";
 
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
-    selectedDate: new Date()
+    selectedDate: new Date(),
+    open: false
   };
   // this.onDateClick = this.onDateClick.bind(this);
   // this.nextMonth = this.nextMonth.bind(this);
   // this.prevMonth = this.prevMonth.bind(this);
 
   renderHeader() {
-    const dateFormat = "MMMM YYYY";
+    const dateFormat = "MMMM D YYYY ";
     return (
       <div className="header row flex-middle">
         <div className="col col-start">
@@ -87,13 +91,18 @@ class Calendar extends React.Component {
     return <div className="body">{rows}</div>;
   }
 
+  show = dimmer => () => this.setState({ dimmer, open: true });
+
   onDateClick = day => {
+    console.log(day);
+    this.show("blurring")();
     this.setState({
       selectedDate: day
     });
   };
 
   nextMonth = () => {
+    // console.log(dateFns);
     this.setState({
       currentMonth: dateFns.addMonths(this.state.currentMonth, 1)
     });
@@ -105,12 +114,59 @@ class Calendar extends React.Component {
     });
   };
 
+  close = () => this.setState({ open: false });
+
+  renderBodies = () => {
+    if (this.props.bodies !== undefined) {
+      return this.props.bodies.map(body => (
+        <Grid.Column width={3}>
+          <PartOfTheBodyCards body={body} parent="calendar" key={body.id} />
+        </Grid.Column>
+      ));
+    }
+  };
+
   render() {
+    const { open, dimmer } = this.state;
     return (
       <div className="calendar">
         {this.renderHeader()}
         {this.renderDays()}
         {this.renderCells()}
+        <Modal
+          dimmer={dimmer}
+          open={open}
+          onClose={this.close}
+          centered={false}
+        >
+          <Modal.Header>Select a body part</Modal.Header>
+          <Modal.Content image scrolling>
+            {/*
+            <Image
+              wrapped
+              size="medium"
+              src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
+            />
+            */}
+            <Modal.Description>
+              <Grid divided="vertically">
+                <Grid.Row stretched>{this.renderBodies()}</Grid.Row>
+              </Grid>
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="black" onClick={this.close}>
+              Nope
+            </Button>
+            <Button
+              positive
+              icon="checkmark"
+              labelPosition="right"
+              content="Yep, that's me"
+              onClick={this.close}
+            />
+          </Modal.Actions>
+        </Modal>
       </div>
     );
   }

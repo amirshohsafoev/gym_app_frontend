@@ -1,10 +1,14 @@
 import React from "react";
+// import { Container, Col, Row } from "react-bootstrap";
+import { Grid } from "semantic-ui-react";
 import ExerciseCard from "../Card/ExerciseCards";
 class ExerciseContainer extends React.Component {
   renderExercise = () => {
     if (this.props.bodyExercises.exercises !== undefined) {
       return this.props.bodyExercises.exercises.map(exercise => (
-        <ExerciseCard exercise={exercise} key={exercise.id} />
+        <Grid.Column width={4}>
+          <ExerciseCard exercise={exercise} key={exercise.id} />
+        </Grid.Column>
       ));
     }
   };
@@ -14,8 +18,9 @@ class ExerciseContainer extends React.Component {
     // let exercise = exercises.map(exercise => <ExerciseCard exercise={exercise} key={exercise.id}/>)
     return (
       <div>
-        <h1>Exercises for: {this.props.bodyExercises.body_name}</h1>
-        {this.renderExercise()}
+        <Grid divided="vertically">
+          <Grid.Row stretched>{this.renderExercise()}</Grid.Row>
+        </Grid>
       </div>
     );
   }

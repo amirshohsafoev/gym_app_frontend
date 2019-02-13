@@ -21,24 +21,25 @@ import Calendar from "./Container/Calendar";
 import CreateUserForm from "./Form/CreateUserForm";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
+
+  // }
+  componentDidMount() {
+    // grab token from localstorage
+    // send request to backend with token in the authorization header
+    // the backend will authenticate the user and then send back the user object.
+    // dispatch a redux action to update the store with the user object that was
+    // returned to the frontend.
     this.props.getBodies();
     this.props.getUser();
   }
-  // componentDidMount() {
-  //   // grab token from localstorage
-  //   // send request to backend with token in the authorization header
-  //   // the backend will authenticate the user and then send back the user object.
-  //   // dispatch a redux action to update the store with the user object that was
-  //   // returned to the frontend.
-  // }
 
   checkAuth = () => {
     if (localStorage.getItem("token") !== null) {
       return <Home />;
     } else {
-      return <Redirect to="/signin" />;
+      return <LogInForm />;
     }
   };
   clearAuth = () => {
@@ -48,14 +49,18 @@ class App extends Component {
   //
 
   render() {
-    console.log(localStorage.getItem("token"));
+    // console.log(localStorage.getItem("token"));
     // console.log(this.props.user_exercises);
-    console.log(this.props.user.user_exercises);
+    // console.log(this.props.user.user_exercises);
     return (
       <div>
         <NavBar />
         <Switch>
-          <Route exact path="/calendar" render={() => <Calendar />} />
+          <Route
+            exact
+            path="/calendar"
+            render={() => <Calendar bodies={this.props.bodies} />}
+          />
           <Route exact path="/createuser" render={() => <CreateUserForm />} />
           <Route
             exact

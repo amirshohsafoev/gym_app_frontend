@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import "bootstrap/dist/css/bootstrap.min.css";
 //Function
 import { createStore, applyMiddleware, compose } from "redux";
 //Component
@@ -17,11 +18,11 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 // console.log(store.getState);
 // debugger;
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
       <App />
-    </Provider>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 

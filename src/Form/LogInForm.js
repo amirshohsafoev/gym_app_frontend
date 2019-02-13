@@ -1,5 +1,6 @@
 import React from "react";
-import { Form } from "semantic-ui-react";
+// import { Form } from "semantic-ui-react";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
 class LogInForm extends React.Component {
   constructor(props) {
@@ -19,21 +20,41 @@ class LogInForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Group>
-          <Form.Input
-            placeholder="Email"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
-          <Form.Button content="Sign in" />
-        </Form.Group>
+        <Col>
+          <Row>
+            <Form.Group controlId="formGroupEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={this.handleChange}
+              />
+              <Form.Text className="text-muted">
+                We will never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
+          </Row>
+          <Row>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+          </Row>
+          <Row>
+            <Form.Group controlId="formBasicChecbox">
+              <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
+          </Row>
+        </Col>
+        <Button variant="primary" type="submit">
+          Sign In
+        </Button>
       </Form>
     );
   }
