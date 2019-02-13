@@ -59,7 +59,9 @@ class App extends Component {
           <Route
             exact
             path="/calendar"
-            render={() => <Calendar bodies={this.props.bodies} />}
+            render={() => (
+              <Calendar bodies={this.props.bodies} key={this.props.bodies} />
+            )}
           />
           <Route exact path="/createuser" render={() => <CreateUserForm />} />
           <Route

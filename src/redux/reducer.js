@@ -1,6 +1,9 @@
 import { LOAD_BODIES, FILTER_EXERCISES } from "../Action/bodyAction";
-import { LOAD_USER_EXERCISES } from "../Action/userExerciseAction";
-import { LOAD_USER } from "../Action/userAction";
+import {
+  LOAD_USER_EXERCISES,
+  UPDATE_EXERCISE_SUCCESS
+} from "../Action/userExerciseAction";
+import { LOAD_USER, UPDATE_USER_SUCCESS } from "../Action/userAction";
 const initialState = {
   bodies: [],
   chosen_body: [],
@@ -19,8 +22,22 @@ const reducer = (state = initialState, action) => {
     case LOAD_USER: {
       return { ...state, user: action.payload };
     }
+    case UPDATE_USER_SUCCESS: {
+      return { ...state, user: action.payload };
+    }
     case LOAD_USER_EXERCISES: {
       return { ...state, user_exercises: action.payload };
+    }
+    case UPDATE_EXERCISE_SUCCESS: {
+      return {
+        ...state,
+        user_exercises: [
+          ...state.user_exercises.filter(
+            exercise => exercise.id !== action.exercise.id
+          ),
+          Object.assign({}, action.exercise)
+        ]
+      };
     }
     default:
       return state;
