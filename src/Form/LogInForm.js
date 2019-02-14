@@ -81,6 +81,7 @@ class LogInForm extends React.Component {
         console.log(data);
         localStorage.setItem("token", data.jwt);
       });
+    // this.props.history.push("/");
   };
 }
 

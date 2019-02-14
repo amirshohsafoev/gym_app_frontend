@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Dropdown, Menu } from "semantic-ui-react";
+import { Dropdown, Menu, Button } from "semantic-ui-react";
 
 class NavBar extends React.Component {
   state = { activeItem: "home" };
@@ -8,7 +8,7 @@ class NavBar extends React.Component {
   render() {
     const { activeItem } = this.state;
     return (
-      <Menu size="tiny">
+      <Menu size="large">
         <Link to="/">
           <Menu.Item
             name="home"
@@ -16,6 +16,13 @@ class NavBar extends React.Component {
             onClick={this.handleItemClick}
           />
         </Link>
+        {/*<Link to="/userschedule">
+          <Menu.Item
+            name="Schedule"
+            active={activeItem === "home"}
+            onClick={this.handleItemClick}
+          />
+        </Link>*/}
         <Link to="/calendar">
           <Menu.Item
             name="Calendar"
@@ -35,7 +42,7 @@ class NavBar extends React.Component {
           <Dropdown item text="My page">
             <Dropdown.Menu>
               <Link to="/userpage">
-                <Dropdown.Item>My page</Dropdown.Item>
+                <Dropdown.Item>User page</Dropdown.Item>
               </Link>
               <Link to="/userexercises">
                 <Dropdown.Item>My Exercises</Dropdown.Item>
@@ -49,11 +56,11 @@ class NavBar extends React.Component {
             </Dropdown.Menu>
           </Dropdown>
           <Link to="/signin">
-            <Menu.Item
-              name="Sign In"
-              active={activeItem === "messages"}
-              onClick={this.handleItemClick}
-            />
+            <Menu.Item>
+              <Button primary onClick={this.handleItemClick}>
+                Sign In
+              </Button>
+            </Menu.Item>
           </Link>
         </Menu.Menu>
       </Menu>

@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // import { Button, Dropdown, Menu } from "semantic-ui-react";
-
+import UserSchedule from "./Container/UserSchedule";
 import LogInForm from "./Form/LogInForm";
 import NavBar from "./Form/NavBar";
 import PartOfTheBodyContainer from "./Container/PartOfTheBodyContainer";
@@ -17,8 +17,29 @@ import UserExerciseContainer from "./Container/UserExerciseContainer";
 import Home from "./Container/Home";
 import UserContainer from "./Container/UserContainer";
 import Calendar from "./Container/Calendar";
+import { withRouter } from "react-router";
 
 import CreateUserForm from "./Form/CreateUserForm";
+
+const PrivateRoute = ({ component: Component, render, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      localStorage.getItem("token") === null ? (
+        <Redirect
+          to={{
+            pathname: "/signin",
+            state: { from: props.location }
+          }}
+        />
+      ) : render ? (
+        render()
+      ) : (
+        <Component {...props} />
+      )
+    }
+  />
+);
 
 class App extends Component {
   // constructor(props) {
@@ -35,13 +56,6 @@ class App extends Component {
     this.props.getUser();
   }
 
-  checkAuth = () => {
-    if (localStorage.getItem("token") !== null) {
-      return <Home />;
-    } else {
-      return <LogInForm />;
-    }
-  };
   clearAuth = () => {
     localStorage.clear();
     return <Redirect to="/signin" />;
@@ -56,7 +70,12 @@ class App extends Component {
       <div>
         <NavBar />
         <Switch>
-          <Route
+          <PrivateRoute
+            exact
+            path="/userschedule"
+            render={() => <UserSchedule />}
+          />
+          <PrivateRoute
             exact
             path="/calendar"
             render={() => (
@@ -64,7 +83,7 @@ class App extends Component {
             )}
           />
           <Route exact path="/createuser" render={() => <CreateUserForm />} />
-          <Route
+          <PrivateRoute
             exact
             path="/userexercises"
             render={() => (
@@ -73,32 +92,31 @@ class App extends Component {
               />
             )}
           />
-          <Route
+          <PrivateRoute
             exact
             path="/bodyparts"
             render={() => <PartOfTheBodyContainer bodies={this.props.bodies} />}
           />
-          <Route
+          <PrivateRoute
             exact
             path="/exercises"
             render={() => (
               <ExerciseContainer bodyExercises={this.props.chosen_body} />
             )}
           />
-          <Route
+          <PrivateRoute
             exact
             path="/userpage"
             render={() => <UserContainer user={this.props.user} />}
           />
           <Route exact path="/signout" render={() => this.clearAuth()} />
           <Route exact path="/signin" render={() => <LogInForm />} />
-          <Route exact path="/" render={() => this.checkAuth()} />
+          <PrivateRoute exact path="/" render={() => <Home />} />
         </Switch>
       </div>
     );
   }
 }
-
 function mapStateToProps(state) {
   return {
     bodies: state.bodies,
@@ -114,7 +132,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    null,
+    {
+      pure: false
+    }
+  )(App)
+);

@@ -1,9 +1,14 @@
 import { LOAD_BODIES, FILTER_EXERCISES } from "../Action/bodyAction";
 import {
+  CREATE_USER_EXERCISE,
   LOAD_USER_EXERCISES,
   UPDATE_EXERCISE_SUCCESS
 } from "../Action/userExerciseAction";
-import { LOAD_USER, UPDATE_USER_SUCCESS } from "../Action/userAction";
+import {
+  CREATE_USER,
+  LOAD_USER,
+  UPDATE_USER_SUCCESS
+} from "../Action/userAction";
 const initialState = {
   bodies: [],
   chosen_body: [],
@@ -19,11 +24,19 @@ const reducer = (state = initialState, action) => {
     case FILTER_EXERCISES: {
       return { ...state, chosen_body: action.payload };
     }
+    case CREATE_USER: {
+      // let newArr = [...state.user, action.payload]
+      return { ...state, user: action.payload };
+    }
     case LOAD_USER: {
       return { ...state, user: action.payload };
     }
     case UPDATE_USER_SUCCESS: {
       return { ...state, user: action.payload };
+    }
+    case CREATE_USER_EXERCISE: {
+      let newArr = [...state.user_exercises, action.payload];
+      return { ...state, user_exercises: newArr };
     }
     case LOAD_USER_EXERCISES: {
       return { ...state, user_exercises: action.payload };

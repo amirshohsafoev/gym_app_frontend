@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Form, Divider } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { createUser } from "../Action/userAction";
 
 class CreateUserForm extends Component {
   constructor(props) {
@@ -18,7 +20,7 @@ class CreateUserForm extends Component {
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
-  handleSubmit = () =>
+  handleReset = () =>
     this.setState({
       email: "",
       first_name: "",
@@ -114,30 +116,15 @@ class CreateUserForm extends Component {
     });
   };
   handleSubmit = e => {
+    console.log("user state", this.state);
     e.preventDefault();
-    fetch("http://localhost:3000/api/v1/users", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        picture_url: this.state.picture_url,
-        age: this.state.age,
-        weight: this.state.weight,
-        height: this.state.height,
-        password: this.state.password
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        // console.log(data);
-        localStorage.setItem("token", data.jwt);
-      });
+    this.props.createUser(this.state);
+    this.handleReset();
+    this.props.history.push("/");
   };
 }
 
-export default CreateUserForm;
+export default connect(
+  null,
+  { createUser }
+)(CreateUserForm);

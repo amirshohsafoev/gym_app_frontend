@@ -3,7 +3,9 @@ import React from "react";
 import EditExerciseForm from "../Form/EditExerciseForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Card, Button, Collapse } from "react-bootstrap";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
+import { Card, Icon, Image, Button } from "semantic-ui-react";
 import { updateUserExercise } from "../Action/userExerciseAction";
 
 class UserExerciseCard extends React.Component {
@@ -42,13 +44,19 @@ class UserExerciseCard extends React.Component {
   // }
 
   render() {
+    console.log(this.props.userexercises);
     const { open } = this.state;
     let { exercise } = this.props;
     if (this.state.isEditing) {
       return (
         <div>
-          <h1>edit exercise</h1>
-          <button onClick={this.toggleEdit}>go back</button>
+          <Button
+            onClick={this.toggleEdit}
+            labelPosition="left"
+            icon="left chevron"
+            content="Back"
+            size="small"
+          />
           <EditExerciseForm
             exercise={this.state.exercise}
             onSave={this.saveExercise}
@@ -58,31 +66,28 @@ class UserExerciseCard extends React.Component {
       );
     } else {
       return (
-        <div>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={exercise.exercise.picture1_url} />
-            <Card.Body>
-              <Card.Title>{exercise.exercise._name}</Card.Title>
-              <Card.Text />
-              <button onClick={this.toggleEdit}>edit</button>
-              <Button
-                onClick={() => this.setState({ open: !open })}
-                aria-controls="example-collapse-text"
-                aria-expanded={open}
-              >
-                More Information
+        <Card color="red">
+          <Image src={exercise.exercise.picture1_url} className="cardImage" />
+          <Card.Content>
+            <Card.Header>{exercise.exercise._name}</Card.Header>
+            <div id="example-collapse-text">
+              <Card.Description>Reps: {exercise.reps}</Card.Description>
+              <Card.Description>Sets: {exercise.sets}</Card.Description>
+              <Card.Description>Weight: {exercise.weight}</Card.Description>
+              <Card.Meta>{exercise.exercise.description}</Card.Meta>
+            </div>
+          </Card.Content>
+          <Card.Content extra>
+            <div className="ui two buttons">
+              <Button color="violet" onClick={this.toggleEdit}>
+                Edit
               </Button>
-              <Collapse in={this.state.open}>
-                <div id="example-collapse-text">
-                  <li>Reps: {exercise.reps}</li>
-                  <li>Sets: {exercise.sets}</li>
-                  <li>Weight: {exercise.weight}</li>
-                  <li>{exercise.exercise.description}</li>
-                </div>
-              </Collapse>
-            </Card.Body>
-          </Card>
-        </div>
+              <Link to="/bodyparts">
+                <Button color="blue">More Info</Button>
+              </Link>
+            </div>
+          </Card.Content>
+        </Card>
       );
     }
   }
@@ -102,10 +107,13 @@ class UserExerciseCard extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(updateUserExercise, dispatch)
+    // getUserExercises: bindActionCreators(getUserExercises, dispatch)
   };
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(UserExerciseCard);
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(UserExerciseCard)
+);

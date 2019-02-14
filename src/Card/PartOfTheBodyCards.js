@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Icon, Image, Button } from "semantic-ui-react";
+import { withRouter } from "react-router";
+import { Card, Icon, Image, Button, Segment } from "semantic-ui-react";
 // import ExerciseContainer from "../Container/ExerciseContainer";
 import { NavLink, Link } from "react-router-dom";
 import { filterExercises } from "../Action/bodyAction";
@@ -21,43 +22,45 @@ class PartOfTheBodyCard extends React.Component {
       return (
         <Card>
           <Image src={this.props.body.picture_url} />
+
           <Card.Content>
             <Card.Header>{this.props.body.body_name}</Card.Header>
-            <Card.Meta>You can add in your schedule</Card.Meta>
-            <Card.Description>Will add some description</Card.Description>
+            {/*<Card.Meta>You can add in your schedule</Card.Meta>
+            <Card.Description>Will add some description</Card.Description>*/}
           </Card.Content>
           <Card.Content extra>
             <a>
-              <Icon name="user" />
-              10 Friends
+              <Icon name="add to calendar" />
+              Add in your schedule
             </a>
           </Card.Content>
           <Card.Content extra>
             <div className="ui two buttons">
-              <Button basic color="green">
-                Modal
-              </Button>
-              <Button basic color="red">
-                Modal
-              </Button>
+              <Link to="/exercises">
+                <Button inverted color="black" onClick={this.handleClick}>
+                  see
+                </Button>
+                <Button inverted color="grey" onClick={this.handleClick}>
+                  exercises
+                </Button>
+              </Link>
             </div>
           </Card.Content>
         </Card>
       );
     } else {
-      // console.log(this.props.body.exercises);
       return (
         <Card>
           <Image src={this.props.body.picture_url} />
           <Card.Content>
             <Card.Header>{this.props.body.body_name}</Card.Header>
-            <Card.Meta>You can add in your schedule</Card.Meta>
-            <Card.Description>Will add some description</Card.Description>
+            {/*<Card.Meta>You can add in your schedule</Card.Meta>
+            <Card.Description>Will add some description</Card.Description>*/}
           </Card.Content>
           <Card.Content extra>
             <Link to="/exercises">
-              <Button basic color="red">
-                Modal
+              <Button color="grey" onClick={this.handleClick}>
+                See exercises
               </Button>
             </Link>
           </Card.Content>
@@ -65,29 +68,11 @@ class PartOfTheBodyCard extends React.Component {
       );
     }
   }
-  // <div>
-  //
-  //     <h1 >{this.props.body.body_name}</h1>
-  //
-  //   <img
-  //     src={this.props.body.picture_url}
-  //     alt={this.props.body.picture_url}
-  //   />
-  // </div>
-  // sendToExerciseContainer = e => {
-  //   console.log("body card", e.target);
-  //   return (
-  //     <Redirect
-  //       to={{
-  //         pathname: "/exercises",
-  //         state: { from: this.props.body.exercises }
-  //       }}
-  //     />
-  //   );
-  // };
 }
 
-export default connect(
-  null,
-  { filterExercises }
-)(PartOfTheBodyCard);
+export default withRouter(
+  connect(
+    null,
+    { filterExercises }
+  )(PartOfTheBodyCard)
+);

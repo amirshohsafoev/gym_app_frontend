@@ -1,7 +1,15 @@
 import React from "react";
 import PartOfTheBodyCards from "../Card/PartOfTheBodyCards";
 
-import { Button, Header, Image, Modal, Grid } from "semantic-ui-react";
+import {
+  Button,
+  Header,
+  Image,
+  Modal,
+  Grid,
+  Icon,
+  Label
+} from "semantic-ui-react";
 import dateFns from "date-fns";
 
 class Calendar extends React.Component {
@@ -119,7 +127,7 @@ class Calendar extends React.Component {
   renderBodies = () => {
     if (this.props.bodies !== undefined) {
       return this.props.bodies.map(body => (
-        <Grid.Column width={3}>
+        <Grid.Column width={4}>
           <PartOfTheBodyCards body={body} parent="calendar" key={body.id} />
         </Grid.Column>
       ));
@@ -139,7 +147,7 @@ class Calendar extends React.Component {
           onClose={this.close}
           centered={false}
         >
-          <Modal.Header>Select a body part</Modal.Header>
+          <Modal.Header>Create your schedule</Modal.Header>
           <Modal.Content image scrolling>
             {/*
             <Image
@@ -148,23 +156,27 @@ class Calendar extends React.Component {
               src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
             />
             */}
-            <Modal.Description>
-              <Grid divided="vertically">
-                <Grid.Row stretched>{this.renderBodies()}</Grid.Row>
-              </Grid>
-            </Modal.Description>
+            <Grid divided="vertically">
+              <Grid.Row stretched>{this.renderBodies()}</Grid.Row>
+            </Grid>
+            {/*<Modal.Description>
+            </Modal.Description>*/}
           </Modal.Content>
           <Modal.Actions>
-            <Button color="black" onClick={this.close}>
-              Nope
+            <Button as="div" labelPosition="right">
+              <Button color="red" onClick={this.close}>
+                <Icon name="power" />
+              </Button>
+              <Label
+                as="a"
+                basic
+                color="black"
+                pointing="left"
+                onClick={this.close}
+              >
+                Close
+              </Label>
             </Button>
-            <Button
-              positive
-              icon="checkmark"
-              labelPosition="right"
-              content="Yep, that's me"
-              onClick={this.close}
-            />
           </Modal.Actions>
         </Modal>
       </div>

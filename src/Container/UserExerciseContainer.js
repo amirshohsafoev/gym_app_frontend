@@ -1,5 +1,7 @@
 import React from "react";
 import UserExerciseCard from "../Card/UserExerciseCards";
+import { Grid } from "semantic-ui-react";
+
 // import { bindActionCreators } from "redux";
 // import { getUserExercises } from "../Action/userExerciseAction";
 // import { connect } from "react-redux";
@@ -11,7 +13,9 @@ class UserExerciseContainer extends React.Component {
   renderUserExercise = () => {
     if (this.props.myExercises !== undefined) {
       return this.props.myExercises.map(exercise => (
-        <UserExerciseCard exercise={exercise} key={exercise.id} />
+        <Grid.Column width={4}>
+          <UserExerciseCard exercise={exercise} key={exercise.id} />
+        </Grid.Column>
       ));
     }
   };
@@ -19,8 +23,9 @@ class UserExerciseContainer extends React.Component {
     // console.log("bla bla bla", this.renderUserExercise);
     return (
       <div>
-        <h1>User Exercises</h1>
-        {this.renderUserExercise()}
+        <Grid divided="vertically">
+          <Grid.Row stretched>{this.renderUserExercise()}</Grid.Row>
+        </Grid>
       </div>
     );
   }

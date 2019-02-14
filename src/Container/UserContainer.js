@@ -3,6 +3,8 @@ import { updateUser } from "../Action/userAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import EditUserForm from "../Form/EditUserForm";
+import { Figure } from "react-bootstrap";
+import { Header, Icon, Image, Button } from "semantic-ui-react";
 
 class UserContainer extends React.Component {
   constructor(props, context) {
@@ -20,6 +22,7 @@ class UserContainer extends React.Component {
     const field = event.target.name;
     const user = this.state.user;
     user[field] = event.target.value;
+    console.log(user);
     return this.setState({ user: user });
   }
 
@@ -34,11 +37,17 @@ class UserContainer extends React.Component {
 
   render() {
     let { user } = this.props;
+    console.log(user);
     if (this.state.isEditing) {
       return (
         <div>
-          <h1>edit user</h1>
-          <button onClick={this.toggleEdit}>go back</button>
+          <Button
+            onClick={this.toggleEdit}
+            labelPosition="left"
+            icon="left chevron"
+            content="Back"
+          />
+
           <EditUserForm
             user={this.state.user}
             onSave={this.saveUser}
@@ -49,16 +58,36 @@ class UserContainer extends React.Component {
     } else {
       return (
         <div>
-          <h1>User Page</h1>
-          <p>{user.first_name}</p>
-          <p>{user.last_name}</p>
-          <p>{user.email}</p>
-          <p>{user.age}</p>
-          <p>{user.weight}</p>
-          <p>{user.height}</p>
-          <img src={user.picture_url} alt={user.picture_url} />
-          <br />
-          <button onClick={this.toggleEdit}>edit</button>
+          <Header as="h1" icon textAlign="center" color="teal">
+            <Icon name="user" circular />
+            <Header.Content>Welcome {user.first_name}</Header.Content>
+          </Header>
+          <Image centered size="large" src={user.picture_url} circular />
+          <Header as="h3" color="grey" block>
+            Last name: {user.last_name}
+          </Header>
+          <Header as="h3" color="grey" block>
+            Email: {user.email}
+          </Header>
+          <Header as="h3" color="grey" block>
+            Age: {user.age}
+          </Header>
+          <Header as="h3" color="grey" block>
+            Height: {user.height}
+          </Header>
+          <Header as="h3" color="grey" block>
+            Weight: {user.weight}
+          </Header>
+          <Header as="h2">
+            <Icon name="settings" />
+            <Header.Content>
+              Account Settings
+              <Header.Subheader>Manage your profile</Header.Subheader>
+            </Header.Content>
+          </Header>
+          <Button color="blue" onClick={this.toggleEdit}>
+            Edit profile
+          </Button>
         </div>
       );
     }
