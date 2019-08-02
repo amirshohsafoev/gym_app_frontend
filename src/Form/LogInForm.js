@@ -1,6 +1,7 @@
 import React from "react";
 // import { Form } from "semantic-ui-react";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import { Link, withRouter } from "react-router-dom";
 
 class LogInForm extends React.Component {
   constructor(props) {
@@ -52,9 +53,11 @@ class LogInForm extends React.Component {
             </Form.Group>
           </Row>
         </Col>
-        <Button variant="primary" type="submit">
-          Sign In
-        </Button>
+        <Link to="userpage">
+          <Button variant="primary" type="submit">
+            Sign In
+          </Button>
+        </Link>
       </Form>
     );
   }
@@ -78,11 +81,11 @@ class LogInForm extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         localStorage.setItem("token", data.jwt);
+        // console.log(data);
       });
     // this.props.history.push("/");
   };
 }
 
-export default LogInForm;
+export default withRouter(LogInForm);

@@ -21,6 +21,7 @@ export const createUserExercise = exercise => {
     })
       .then(res => res.json())
       .then(user_exercise => {
+        console.log(user_exercise);
         dispatch({
           type: CREATE_USER_EXERCISE,
           payload: user_exercise

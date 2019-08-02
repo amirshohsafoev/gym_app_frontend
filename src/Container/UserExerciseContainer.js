@@ -10,8 +10,10 @@ class UserExerciseContainer extends React.Component {
   // componentDidMount() {
   //   this.props.getUserExercises();
   // }
+
   renderUserExercise = () => {
     if (this.props.myExercises !== undefined) {
+      console.log(this.props.myExercises, "this updated too");
       return this.props.myExercises.map(exercise => (
         <Grid.Column width={4}>
           <UserExerciseCard exercise={exercise} key={exercise.id} />
@@ -19,6 +21,11 @@ class UserExerciseContainer extends React.Component {
       ));
     }
   };
+
+  componentDidUpdate(prevProp) {
+    console.log("this did update");
+    this.renderUserExercise();
+  }
   render() {
     // console.log("bla bla bla", this.renderUserExercise);
     return (

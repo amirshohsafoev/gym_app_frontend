@@ -35,8 +35,15 @@ const reducer = (state = initialState, action) => {
       return { ...state, user: action.payload };
     }
     case CREATE_USER_EXERCISE: {
-      let newArr = [...state.user_exercises, action.payload];
-      return { ...state, user_exercises: newArr };
+      let newArr = [...state.user_exercises];
+      if (newArr.includes(action.payload)) {
+        newArr = [...state.user_exercises];
+      } else {
+        // console.log(state, "break", action.payload);
+        newArr = [...state.user.user_exercises, action.payload];
+      }
+      console.log(newArr, "testtestest");
+      return { ...state, user: { ...state.user, user_exercises: newArr } };
     }
     case LOAD_USER_EXERCISES: {
       return { ...state, user_exercises: action.payload };

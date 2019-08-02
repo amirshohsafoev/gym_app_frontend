@@ -1,4 +1,12 @@
 /*Card size*/
+.homepgae {
+  /* background-image: url("https://www.t-nation.com/system/publishing/articles/10005529/original/6-Reasons-You-Should-Never-Open-a-Gym.png?1509471214"); */
+  background-color: red;
+  height: 100%;
+  /* overflow-x: hidden; */
+  padding-top: 20px;
+  opacity: 0.8;
+}
 .cardImage {
   width: auto;
   height: 260px;

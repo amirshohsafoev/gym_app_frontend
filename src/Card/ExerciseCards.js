@@ -20,8 +20,8 @@ class ExerciseCard extends React.Component {
   render() {
     // const { open } = this.state;
     let { exercise } = this.props;
-    console.log("exercise id", exercise.id);
-    console.log("user id", this.props.user.id);
+    // console.log("exercise id", exercise.id);
+    // console.log("user id", this.props.user.id);
     return (
       <Card color="red">
         <Image src={exercise.picture1_url} className="cardImage" />
@@ -58,7 +58,7 @@ class ExerciseCard extends React.Component {
     );
   }
   handleSubmit = e => {
-    console.log("exercise card state", this.state);
+    // console.log("exercise card state", this.state);
     e.preventDefault();
     this.props.createUserExercise(this.state);
   };

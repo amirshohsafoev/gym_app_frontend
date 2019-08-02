@@ -56,6 +56,10 @@ class App extends Component {
     this.props.getUser();
   }
 
+  // componentDidUpdate(prevProps) {
+  //   this.fetchData(this.props.user.user_exercises);
+  // }
+
   clearAuth = () => {
     localStorage.clear();
     return <Redirect to="/signin" />;
@@ -65,9 +69,9 @@ class App extends Component {
   render() {
     // console.log(localStorage.getItem("token"));
     // console.log(this.props.user_exercises);
-    // console.log(this.props.user.user_exercises);
+    console.log(this.props.user.user_exercises, "user updated");
     return (
-      <div>
+      <div className="something">
         <NavBar />
         <Switch>
           <PrivateRoute

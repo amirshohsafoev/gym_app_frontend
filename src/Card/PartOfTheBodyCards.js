@@ -13,7 +13,7 @@ class PartOfTheBodyCard extends React.Component {
   //   }
   // };
   handleClick = () => {
-    console.log("traliki uje ne xodyat");
+    console.log("i am getting chosen_exercise");
     return this.props.filterExercises(this.props.body);
   };
   // onClick={() => this.renderExercise()}
