@@ -69,7 +69,7 @@ class App extends Component {
   render() {
     // console.log(localStorage.getItem("token"));
     // console.log(this.props.user_exercises);
-    console.log(this.props.user.user_exercises, "user updated");
+    // console.log(this.props.user.user_exercises, "user updated");
     return (
       <div className="something">
         <NavBar />
